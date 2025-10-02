@@ -29,12 +29,12 @@ const formattedBalance = computed(() => {
 </script>
 <template>
   <div
-    class="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-lg p-5 shadow"
+    class="bg-gradient-to-r from-indigo-100 to-[#d6d727b0] rounded-lg p-5 shadow"
   >
     <div class="flex justify-between items-center">
       <div>
         <p class="text-sm text-gray-600">Current Balance</p>
-        <h3 class="text-3xl font-bold text-indigo-800">{{ formattedBalance }}</h3>
+        <h3 class="text-3xl font-bold text-indigo-700">{{ formattedBalance }}</h3>
       </div>
       <button
         class="bg-white text-indigo-600 p-2 rounded-full hover:bg-indigo-100"

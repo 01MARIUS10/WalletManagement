@@ -28,7 +28,7 @@ const categories = computed<CategorieStat[]>(() => {
   return Object.values(stats).map(cat => {
     const percent = cat.amount / spendTotal;
     cat = {...cat,percent:percent};
-    
+
     return ({
     ...cat,
     description:
@@ -55,7 +55,7 @@ const categories = computed<CategorieStat[]>(() => {
             <li
               v-for="cat in categories"
               :key="cat.name"
-              class="flex justify-between items-center border-b pb-2 bg-white rounded-lg px-2"
+              class="flex justify-between items-center p-1 bg-white rounded-lg px-2"
             >
               <div class="flex items-center">
                 <span class="text-2xl mr-2">{{ cat.iconCategory }}</span>

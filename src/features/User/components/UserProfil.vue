@@ -6,7 +6,7 @@
           <img
             :src="user.avatarUrl"
             :alt="user.name"
-            class="w-20 h-20 rounded-full border-4 border-white absolute -top-10"
+            class="w-20 h-20 rounded-full border-4 border-[#d6d727b0] absolute -top-10"
           />
           <h2 class="text-lg font-semibold text-gray-800 mt-10">{{ user.name }}</h2>
           <p class="text-gray-600">{{ user.email }}</p>

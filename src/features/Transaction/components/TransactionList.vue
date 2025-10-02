@@ -36,7 +36,7 @@ const transactions = ref(mockTransactions);
           placeholder="Rechercher une transaction..."
           class="w-full border rounded-lg p-2 mb-2 bg-white text-gray-700"
         />
-        <div v-if="showFilters"  class=" border-b border-black py-2">
+        <div v-if="showFilters"  class=" py-2">
           <div >
             <SelectInOutCome />
             <SelectAmountIntervall />
@@ -51,7 +51,7 @@ const transactions = ref(mockTransactions);
         <li
           v-for="transaction in transactions"
           :key="transaction.id"
-          class="flex justify-between items-center border-b pb-2 bg-white rounded-lg px-2"
+          class="flex justify-between items-center border-0 p-1 bg-white rounded-lg px-2"
         >
           <div>
             <span class="block">{{ transaction.label }}</span>

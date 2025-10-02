@@ -4,7 +4,7 @@
     <div>
       <div class="flex justify-between items-center mb-2">
         <h4 class="text-lg font-semibold text-gray-700">Recent Transactions</h4>
-        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800" @click.prevent="onSeeAll">See all</a>
+        <a href="#" class="text-sm text-indigo-500 hover:text-indigo-800" @click.prevent="onSeeAll">See all</a>
       </div>
 
       <ul class="space-y-2">

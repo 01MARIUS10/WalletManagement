@@ -3,7 +3,7 @@
   <a
     href="#"
     @click.prevent="onClick"
-    class="fixed bottom-22 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+    class="fixed bottom-22 right-4 bg-[#d6d727] text-white p-4 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
     role="button"
     aria-label="Ajouter"
   >
