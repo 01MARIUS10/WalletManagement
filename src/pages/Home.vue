@@ -9,18 +9,25 @@ import UserBalance from '@/features/User/components/UserBalance.vue';
 import FloatingAdd from '@/components/Button/FloatingAdd.vue';
 import PerCategorieList from '@/features/Categorie/components/PerCategorieList.vue';
 import RecentTransaction from '@/features/Transaction/components/RecentTransaction.vue';
+
+
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/features/User/stores/user'
+
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 </script>
 
 <template>
   <AppLayout>
-    <div class="min-h-screen p-4">
+    <div class="min-h-[calc(100vh - 96px)] p-4">
       <!-- Header -->
       <div class=" pt-6">
-        <UserGreeting />
+        <UserGreeting :name="user.name"/>
       </div>
       <!-- Current Balance -->
       <div class="my-4">
-        <UserBalance />
+        <UserBalance :balance="user.account" />
       </div>
 
       <!-- Content -->
@@ -28,7 +35,7 @@ import RecentTransaction from '@/features/Transaction/components/RecentTransacti
 
       <!-- Content -->
       <RecentTransaction />
-      
+
       <FloatingAdd @open="console.log('onOpen')" />
     </div>
   </AppLayout>

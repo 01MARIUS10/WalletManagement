@@ -3,7 +3,7 @@ export interface Transaction {
   label: string
   amount: number
   category: string
-  icon: string
+  iconCategory: string
   date: string
-  image:string
+  image: string
 }

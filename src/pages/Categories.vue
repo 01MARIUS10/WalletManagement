@@ -2,46 +2,50 @@
 import AppLayout from './Layout/AppLayout.vue';
 import FloatingAdd from '@/components/Button/FloatingAdd.vue';
 import HeaderApp from '@/widgets/HeaderApp.vue';
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { mockTransactions } from '@/features/Transaction/data';
+import type { CategorieStat } from '@/features/Categorie/types';
 
-const categories = ref([
-  {
-    id: 1,
-    icon: '🍔',
-    name: 'Nourriture',
-    amount: -40,
-    description: '40€ dépensés'
-  },
-  {
-    id: 2,
-    icon: '🎮',
-    name: 'Loisirs',
-    amount: -20,
-    description: '20€ dépensés'
-  },
-  {
-    id: 3,
-    icon: '🚗',
-    name: 'Transport',
-    amount: -10,
-    description: '10€ dépensés'
-  },
-  {
-    id: 4,
-    icon: '💰',
-    name: 'Argent de poche',
-    amount: 50,
-    description: '50€ reçus'
-  }
-]);
+// Calcul dynamique des stats par catégorie à partir du mockTransactions
+const categories = computed<CategorieStat[]>(() => {
+  let spendTotal:number = 0;
+  // Regroupe les transactions par catégorie
+  const stats: Record<string, CategorieStat> = {};
+  mockTransactions.forEach(t => {
+    if (!stats[t.category]) {
+      stats[t.category] = {
+        name: t.category,
+        icon: t.iconCategory,
+        amount: 0,
+        percent:0
+      };
+    }
+    stats[t.category].amount += t.amount;
+    spendTotal+=t.amount;
+  });
+
+  // Génère la description selon le montant
+  return Object.values(stats).map(cat => {
+    const percent = cat.amount / spendTotal;
+    cat = {...cat,percent:percent};
+    
+    return ({
+    ...cat,
+    description:
+      cat.amount < 0
+        ? `${Math.abs(cat.amount)}€ dépensés`
+        : `${cat.amount}€ reçus`
+  })
+});
+});
 </script>
 
 <template>
   <AppLayout>
-    <div class="bg-white shadow">
+    <div class="bg-white shadow ">
       <HeaderApp />
     </div>
-    <div class="min-h-screen p-4">
+    <div class="min-h-[calc(100vh - calc(96px + 60px)] p-4">
       <!-- Content -->
       <div class="flex-1 overflow-y-auto">
         <!-- Categories List -->
@@ -50,11 +54,11 @@ const categories = ref([
           <ul class="space-y-3">
             <li
               v-for="cat in categories"
-              :key="cat.id"
+              :key="cat.name"
               class="flex justify-between items-center border-b pb-2 bg-white rounded-lg px-2"
             >
               <div class="flex items-center">
-                <span class="text-2xl mr-2">{{ cat.icon }}</span>
+                <span class="text-2xl mr-2">{{ cat.iconCategory }}</span>
                 <div>
                   <span class="block font-semibold">{{ cat.name }}</span>
                   <span class="text-sm text-gray-500">{{ cat.description }}</span>

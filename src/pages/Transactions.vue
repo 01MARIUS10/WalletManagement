@@ -15,7 +15,7 @@ import TransactionList from '@/features/Transaction/components/TransactionList.v
     <div class="bg-white shadow">
       <HeaderApp />
     </div>
-    <div class="min-h-screen p-4">
+    <div class="min-h-[calc(100vh - calc(96px + 60px)] p-4">
 
       <!-- Content -->
       <div class="flex-1 overflow-x-hidden">

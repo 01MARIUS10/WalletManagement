@@ -8,43 +8,15 @@ import SelectDate from '@/features/Transaction/components/TransactionFilter/Sele
 import SelectInOutCome from '@/features/Transaction/components/TransactionFilter/SelectInOutCome.vue';
 import { ref } from 'vue';
 import ArrowBtn from '@/components/Button/ArrowBtn.vue';
+import { mockTransactions } from '../data';
 
 const showFilters = ref(false);
-// Mock data pour la liste des transactions
-const transactions = ref([
-  {
-    id: 1,
-    label: '🍔 Repas',
-    date: '2025-09-15',
-    amount: -5,
-    category: 'Nourriture',
-    type: 'depense'
-  },
-  {
-    id: 2,
-    label: '🎮 Jeu vidéo',
-    date: '2025-09-14',
-    amount: -20,
-    category: 'Loisirs',
-    type: 'depense'
-  },
-  {
-    id: 3,
-    label: '💰 Argent de poche',
-    date: '2025-09-13',
-    amount: 50,
-    category: 'Autres',
-    type: 'revenu'
-  }
-]);
+const transactions = ref(mockTransactions);
 </script>
 
 <template>
-
-
   <!-- Content -->
   <div class="flex-1 ">
-
     <!-- Transactions List -->
     <div class=" ">
       <div class="flex justify-between  mb-2">
@@ -90,7 +62,7 @@ const transactions = ref([
               :class="transaction.amount < 0 ? 'text-red-500' : 'text-green-500'"
               class="font-semibold"
             >
-              {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount }}€
+              {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount }}MGA
             </span>
             <button class="text-blue-600 hover:text-blue-800">✏️</button>
             <button class="text-red-600 hover:text-red-800">🗑️</button>

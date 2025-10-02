@@ -22,7 +22,7 @@
               :style="{ width: cat.percent + '%' }"
             ></div>
           </div>
-          <span class="ml-2 text-sm">{{ cat.amount }}€</span>
+          <span class="ml-2 text-sm">{{ cat.amount }}MGA</span>
         </div>
       </div>
     </div>
@@ -39,14 +39,15 @@ const transactions = ref<Transaction[]>(mockTransactions);
 
 // Calcul des stats par catégorie
 const categorieStats = computed((): CategorieStat[] => {
-  // On ne prend que les dépenses (amount négatif)
+
   const depenses = transactions.value.filter((t: Transaction) => t.amount < 0);
+  
   const total = Math.abs(depenses.reduce((sum: number, t: Transaction) => sum + t.amount, 0));
   // Regroupement par catégorie
   const stats: Record<string, { name: string, icon: string, amount: number }> = {};
   depenses.forEach((t: Transaction) => {
     if (!stats[t.category]) {
-      stats[t.category] = { name: t.category, icon: t.icon, amount: 0 };
+      stats[t.category] = { name: t.category, icon: t.iconCategory, amount: 0 };
     }
     stats[t.category].amount += Math.abs(t.amount);
   });
