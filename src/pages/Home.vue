@@ -26,7 +26,7 @@ import FloatingAdd from '@/components/Button/FloatingAdd.vue';
         <!-- Dépenses par catégorie (simulé avec barres) -->
         <div class="px-4">
           <div class="">
-            <h2 class="text-lg font-semibold mb-2">Dépenses par Catégorie</h2>
+            <h2 class="text-black text-lg font-semibold mb-2">Dépenses par Catégorie</h2>
             <!-- Période Filter -->
             <div class="flex justify-between mb-4">
               <select class="border rounded-lg p-2 bg-white text-gray-700">
@@ -73,7 +73,7 @@ import FloatingAdd from '@/components/Button/FloatingAdd.vue';
       </div>
 
       <!-- Content -->
-      <div class="flex-1 overflow-y-auto py-4 mt-4">
+      <div class="flex-1 overflow-y-auto py-4 mt-4 ">
         <!-- Recent Transactions -->
         <div class="">
           <div class="flex justify-between items-center mb-2">

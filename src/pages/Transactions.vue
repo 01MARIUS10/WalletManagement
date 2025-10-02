@@ -18,7 +18,7 @@ import TransactionList from '@/features/Transaction/components/TransactionList.v
     <div class="min-h-screen p-4">
 
       <!-- Content -->
-      <div class="flex-1 overflow-y-auto">
+      <div class="flex-1 overflow-x-hidden">
         <TransactionList />
       </div>
 
