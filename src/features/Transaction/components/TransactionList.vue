@@ -7,6 +7,7 @@ import SelectCategories from '@/features/Transaction/components/TransactionFilte
 import SelectDate from '@/features/Transaction/components/TransactionFilter/SelectDate.vue';
 import SelectInOutCome from '@/features/Transaction/components/TransactionFilter/SelectInOutCome.vue';
 import { ref } from 'vue';
+import ArrowBtn from '@/components/Button/ArrowBtn.vue';
 
 const showFilters = ref(false);
 // Mock data pour la liste des transactions
@@ -43,33 +44,37 @@ const transactions = ref([
 
   <!-- Content -->
   <div class="flex-1 ">
-    <!-- Search and Filters -->
-    <div class="mb-4">
-      <input
-        type="text"
-        placeholder="Rechercher une transaction..."
-        class="w-full border rounded-lg p-2 mb-2 bg-white text-gray-700"
-      />
-      <div class=" border-t border-b border-black py-2">
-        <button
-          class="mb-2 px-3 py-1 rounded bg-indigo-500 text-white hover:bg-indigo-600 transition"
-          @click="showFilters = !showFilters"
-        >
-          {{ showFilters ? 'Masquer les filtres' : 'Afficher les filtres' }}
-        </button>
-        <div v-if="showFilters">
-          <SelectInOutCome />
-          <SelectAmountIntervall />
-          <SelectCategories />
-          <SelectDate />
-        </div>
-      </div>
-
-    </div>
 
     <!-- Transactions List -->
     <div class=" ">
-      <h2 class="text-lg font-semibold mb-2">Liste des Transactions</h2>
+      <div class="flex justify-between  mb-2">
+        <h2 class="text-lg font-semibold">Liste des Transactions</h2>
+
+        <ArrowBtn
+          text="Filtres"
+          :isUp="showFilters"
+          @toggle="showFilters = !showFilters"
+        />
+
+      </div>
+      <!-- Search and Filters -->
+      <div class="mb-4">
+        <input
+          type="text"
+          placeholder="Rechercher une transaction..."
+          class="w-full border rounded-lg p-2 mb-2 bg-white text-gray-700"
+        />
+        <div v-if="showFilters"  class=" border-b border-black py-2">
+          <div >
+            <SelectInOutCome />
+            <SelectAmountIntervall />
+            <SelectCategories />
+            <SelectDate />
+          </div>
+        </div>
+
+      </div>
+
       <ul class="space-y-3">
         <li
           v-for="transaction in transactions"
