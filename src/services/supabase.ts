@@ -1,5 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-
+import { supabaseConf } from '../lib/supabase';
 let supabaseClient: SupabaseClient | null = null;
 
 /**
@@ -13,9 +13,8 @@ let supabaseClient: SupabaseClient | null = null;
 export function getSupabase(): SupabaseClient {
   if (supabaseClient) return supabaseClient;
 
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
-  const SUPABASE_ANON_KEY =
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.SUPABASE_ANON_KEY;
+  const SUPABASE_URL = supabaseConf.supabaseUrl;
+  const SUPABASE_ANON_KEY = supabaseConf.supabaseKey;
 
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     throw new Error(
