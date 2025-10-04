@@ -3,4 +3,5 @@ export type CategorieStat = {
   icon: string
   amount: number
   percent: string | number
+  description: string
 }

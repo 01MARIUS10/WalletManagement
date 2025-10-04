@@ -17,7 +17,8 @@ const categories = computed<CategorieStat[]>(() => {
         name: t.category,
         icon: t.iconCategory,
         amount: 0,
-        percent:0
+        percent:0,
+        description:""
       };
     }
     stats[t.category].amount += t.amount;
@@ -58,7 +59,7 @@ const categories = computed<CategorieStat[]>(() => {
               class="flex justify-between items-center p-1 bg-white rounded-lg px-2"
             >
               <div class="flex items-center">
-                <span class="text-2xl mr-2">{{ cat.iconCategory }}</span>
+                <span class="text-2xl mr-2">{{ cat.icon }}</span>
                 <div>
                   <span class="block font-semibold">{{ cat.name }}</span>
                   <span class="text-sm text-gray-500">{{ cat.description }}</span>

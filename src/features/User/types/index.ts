@@ -32,7 +32,7 @@ export interface User {
   email: string;
   account: Account;
   role: UserRole;
-  avatarUrl?: string | null;
+  avatarUrl?: string ;
   createdAt: string; // ISO date string
 
   // Domain-specific fields

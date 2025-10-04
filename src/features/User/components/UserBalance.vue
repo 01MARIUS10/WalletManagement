@@ -9,7 +9,7 @@ const props = withDefaults(
     balance:Account
   }>(),
 
-  { balance: { balanceWallet: 0, balanceUnit: 'MGA' } }
+  { balance: () => ({ balanceWallet: 0, balanceUnit: 'MGA' }) }
 )
 
 

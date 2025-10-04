@@ -16,10 +16,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Votre App Mobile',
-        short_name: 'AppMobile',
-        description: 'Description de votre application',
-        theme_color: '#ffffff',
+        name: 'e-Poketra',
+        short_name: 'e-Poketra',
+        description: 'gestionnaire de portefeuille personnel',
+        theme_color: '#432dd7',
         icons: [
           {
             src: 'pwa-192x192.png',

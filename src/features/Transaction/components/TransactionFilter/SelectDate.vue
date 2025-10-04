@@ -2,7 +2,7 @@
 <template>
     <div class="card flex justify-between items-center">
       <h3 class=" font-semibold text-black">Date :</h3>
-      <DatePicker v-model="dates" selectionMode="range" :manualInput="false" size="small" showIcon />
+      <DatePicker updateModelType="dateRange"  v-model="dates" selectionMode="range" :manualInput="false" size="small" showIcon />
     </div>
 </template>
 

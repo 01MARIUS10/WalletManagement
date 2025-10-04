@@ -55,6 +55,7 @@ const categorieStats = computed((): CategorieStat[] => {
   return Object.values(stats)
     .map(cat => ({
       ...cat,
+      description:"",
       percent: total ? ((cat.amount / total) * 100).toFixed(2) : 0
     }))
     .sort((a, b) => b.amount - a.amount); // Tri décroissant

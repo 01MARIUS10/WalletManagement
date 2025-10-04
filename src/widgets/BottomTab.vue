@@ -11,7 +11,9 @@ const route = useRoute();
 function isActive(tabTo: string) {
   return route.path === tabTo;
 }
-
+function activeClass(tabTo: string) {
+  return isActive(tabTo) ? 'text-gray-100' : 'text-gray-400';
+}
 function navigate(to: string) {
   if (route.path !== to) {
     router.push(to);
@@ -25,7 +27,7 @@ function navigate(to: string) {
       <button
         type="button"
         @click="navigate('/')"
-        :class="['flex flex-col items-center', isActive('/') ? 'text-gray-100' : 'text-black']"
+        :class="['flex flex-col items-center', activeClass('/')]"
       >
         <svg
         class="w-6 h-6"
@@ -45,7 +47,7 @@ function navigate(to: string) {
       <button
         type="button"
         @click="navigate('/transactions')"
-        :class="['flex flex-col items-center', isActive('/transactions') ? 'text-gray-100' : 'text-black']"
+        :class="['flex flex-col items-center', activeClass('/transactions')]"
       >
         <svg
         class="w-6 h-6"
@@ -66,7 +68,7 @@ function navigate(to: string) {
       <button
         type="button"
         @click="navigate('/categories')"
-        :class="['flex flex-col items-center', isActive('/categories') ? 'text-gray-100' : 'text-black']"
+        :class="['flex flex-col items-center', activeClass('/categories')]"
       >
         <svg
         class="w-6 h-6"
@@ -87,7 +89,7 @@ function navigate(to: string) {
       <button
         type="button"
         @click="navigate('/profil')"
-        :class="['flex flex-col items-center', isActive('/profil') ? 'text-gray-100' : 'text-black']"
+        :class="['flex flex-col items-center', activeClass('/profil')]"
       >
         <svg
         class="w-6 h-6"
