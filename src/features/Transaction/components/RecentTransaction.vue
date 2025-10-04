@@ -9,7 +9,7 @@
 
       <ul class="space-y-2">
         <li
-          v-for="tx in txs"
+          v-for="tx in transactions"
           :key="tx.id"
           class="flex justify-between items-center p-2 bg-white rounded-lg"
         >
@@ -31,45 +31,34 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps,computed } from 'vue'
+import { defineProps,ref } from 'vue'
 import type { Transaction } from '@/features/Transaction/types'
-import { mockTransactions } from '../data'
+// import { mockTransactions } from '../data'
+import { fetchRecentTransactions } from '../Services/transaction';
+import { PostgrestError } from '@supabase/supabase-js';
+import { formatAmount, formatDate } from '../helper';
 
 const emits = defineEmits<{
   (e: 'see-all'): void
-}>()
-
-const props = defineProps<{
-  transactions?: Transaction[]
 }>()
 
 function onSeeAll() {
   emits('see-all')
 }
 
-function formatDate(dateStr: string) {
-  const d = new Date(dateStr)
-  if (Number.isNaN(d.getTime())) return dateStr
-  return new Intl.DateTimeFormat(undefined, {
-    day: '2-digit',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(d)
-}
-
-function formatAmount(amount: number) {
-  const sign = amount < 0 ? '-' : ''
-  const abs = Math.abs(amount).toFixed(2)
-  return `${sign}$${abs}`
-}
 
 function amountClass(amount: number) {
   return amount < 0 ? 'text-red-500' : 'text-green-600'
 }
 
-// Valeur par défaut si aucune prop n'est passée
-const defaultTransactions: Transaction[] = mockTransactions.slice(0,3)
-// Utilise la prop si fournie, sinon la valeur par défaut
-const txs = computed(() => props.transactions && props.transactions.length > 0 ? props.transactions : defaultTransactions)
+const transactions = ref<Transaction[]>([])
+async function loadTransactions() {
+  const result = await fetchRecentTransactions(3) as { data: Transaction[]; error: PostgrestError | null };
+  if (result.error) {
+    console.error("Erreur lors de la récupération des transactions :", result.error);
+  } else {
+    transactions.value = result.data;
+  }
+}
+loadTransactions()
 </script>

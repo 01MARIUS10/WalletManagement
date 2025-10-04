@@ -1,10 +1,10 @@
-import { fetchTransactions, TransactionOptions } from "./transactionQueryBuilder";
+import { fetchTransactions, TransactionOptions } from "./transactionQBUse";
 import type { Transaction } from "../types";
 import type { PostgrestError } from "@supabase/supabase-js";
 /**
  * Récupère les transactions d'un utilisateur
  */
-export async function fetchUserTransactions(userId: string, limit = 50): Promise<{
+export async function fetchUserTransactions(userId: string = "1", limit = 50): Promise<{
   data: Transaction[];
   error: PostgrestError | null;
 }> {

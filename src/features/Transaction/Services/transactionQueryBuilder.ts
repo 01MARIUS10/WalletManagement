@@ -1,7 +1,3 @@
-import { supabase } from '@/services/supabase';
-import type { PostgrestError } from '@supabase/supabase-js';
-import type { Transaction } from '../types';
-
 export interface FetchTransactionsOptions {
   userId?: string;
   categoryId?: number | string | null;
@@ -12,6 +8,7 @@ export interface FetchTransactionsOptions {
   order?: 'asc' | 'desc';
   orderBy?: string;
 }
+
 
 /**
  * Builder pattern pour créer les options de récupération des transactions
@@ -73,41 +70,4 @@ export class TransactionOptionsBuilder {
   build(): FetchTransactionsOptions {
     return { ...this.options };
   }
-}
-
-/**
- * Factory function pour créer un builder
- */
-export const TransactionOptions = () => new TransactionOptionsBuilder();
-
-/**
- * Récupère des transactions depuis Supabase.
- */
-export async function fetchTransactions(options?: FetchTransactionsOptions): Promise<{ data: Transaction[]; error: PostgrestError | null }> {
-  const {
-    userId,
-    categoryId,
-    from,
-    to,
-    limit = 100,
-    offset = 0,
-    order = 'desc',
-    orderBy = 'date',
-  } = options ?? {};
-
-  let query = supabase.from('transactions').select('*');
-
-  if (userId) query = query.eq('user_id', userId);
-  if (categoryId !== undefined && categoryId !== null) query = query.eq('category_id', categoryId);
-  if (from) query = query.gte('date', from);
-  if (to) query = query.lte('date', to);
-
-  const start = offset;
-  const end = offset + Math.max(0, limit - 1);
-
-  query = query.order(orderBy, { ascending: order === 'asc' }).range(start, end);
-
-  const { data, error } = await query;
-
-  return { data: data ?? [], error };
 }

@@ -34,30 +34,43 @@ import { ref, computed } from 'vue';
 import SelectPeriod from './PerCategorieFilter/SelectPeriod.vue';
 import type { Transaction } from "@/features/Transaction/types";
 import type { CategorieStat } from "../types";
-import { mockTransactions } from "@/features/Transaction/data";
-const transactions = ref<Transaction[]>(mockTransactions);
+// import { mockTransactions } from "@/features/Transaction/data";
+// const transactions = ref<Transaction[]>(mockTransactions);
+import { fetchUserCategories } from '../Services/categorie' ;
 
 // Calcul des stats par catégorie
-const categorieStats = computed((): CategorieStat[] => {
+// const categorieStats = computed((): CategorieStat[] => {
 
-  const depenses = transactions.value.filter((t: Transaction) => t.amount < 0);
+//   const depenses = transactions.value.filter((t: Transaction) => t.amount < 0);
   
-  const total = Math.abs(depenses.reduce((sum: number, t: Transaction) => sum + t.amount, 0));
-  // Regroupement par catégorie
-  const stats: Record<string, { name: string, icon: string, amount: number }> = {};
-  depenses.forEach((t: Transaction) => {
-    if (!stats[t.category]) {
-      stats[t.category] = { name: t.category, icon: t.iconCategory, amount: 0 };
-    }
-    stats[t.category].amount += Math.abs(t.amount);
-  });
-  // Calcul du pourcentage et tri du plus grand au plus petit
-  return Object.values(stats)
-    .map(cat => ({
-      ...cat,
-      description:"",
-      percent: total ? ((cat.amount / total) * 100).toFixed(2) : 0
-    }))
-    .sort((a, b) => b.amount - a.amount); // Tri décroissant
-});
+//   const total = Math.abs(depenses.reduce((sum: number, t: Transaction) => sum + t.amount, 0));
+//   // Regroupement par catégorie
+//   const stats: Record<string, { name: string, icon: string, amount: number }> = {};
+//   depenses.forEach((t: Transaction) => {
+//     if (!stats[t.category]) {
+//       stats[t.category] = { name: t.category, icon: t.iconCategory, amount: 0 };
+//     }
+//     stats[t.category].amount += Math.abs(t.amount);
+//   });
+//   // Calcul du pourcentage et tri du plus grand au plus petit
+//   return Object.values(stats)
+//     .map(cat => ({
+//       ...cat,
+//       description:"",
+//       percent: total ? ((cat.amount / total) * 100).toFixed(2) : 0
+//     }))
+//     .sort((a, b) => b.amount - a.amount); // Tri décroissant
+// });
+
+const categorieStats = ref<CategorieStat[]>([]);
+async function loadCategories() {
+  console.log("load")
+  const result = await fetchUserCategories();
+  if (result.error) {
+    console.error('Erreur lors de la récupération des catégories :', result.error);
+  } else {
+    categorieStats.value = result.data;
+  }
+}
+loadCategories();
 </script>

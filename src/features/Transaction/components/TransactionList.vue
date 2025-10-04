@@ -8,10 +8,23 @@ import SelectDate from '@/features/Transaction/components/TransactionFilter/Sele
 import SelectInOutCome from '@/features/Transaction/components/TransactionFilter/SelectInOutCome.vue';
 import { ref } from 'vue';
 import ArrowBtn from '@/components/Button/ArrowBtn.vue';
-import { mockTransactions } from '../data';
+import { fetchUserTransactions } from '../Services/transaction';
+import type { Transaction } from '../types';
+import type { PostgrestError } from '@supabase/supabase-js';
+import { formatDate } from '../helper';
 
 const showFilters = ref(false);
-const transactions = ref(mockTransactions);
+const transactions = ref<Transaction[]>([]);
+
+async function loadTransactions() {
+  const result = await fetchUserTransactions() as { data: Transaction[]; error: PostgrestError | null };
+  if (result.error) {
+    console.error("Erreur lors de la récupération des transactions :", result.error);
+  } else {
+    transactions.value = result.data;
+  }
+}
+loadTransactions()
 </script>
 
 <template>
@@ -36,8 +49,11 @@ const transactions = ref(mockTransactions);
           placeholder="Rechercher une transaction..."
           class="w-full border rounded-lg p-2 mb-2 bg-white text-gray-700"
         />
-        <div v-if="showFilters"  class=" py-2">
-          <div >
+        <div
+          v-if="showFilters"
+          class=" py-2"
+        >
+          <div>
             <SelectInOutCome />
             <SelectAmountIntervall />
             <SelectCategories />
@@ -55,7 +71,7 @@ const transactions = ref(mockTransactions);
         >
           <div>
             <span class="block">{{ transaction.label }}</span>
-            <span class="text-sm text-gray-500">{{ transaction.date }}</span>
+            <span class="text-sm text-gray-500">{{ formatDate(transaction.date) }}</span>
           </div>
           <div class="flex items-center space-x-2">
             <span

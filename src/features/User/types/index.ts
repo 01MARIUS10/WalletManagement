@@ -2,7 +2,7 @@
 export type UserId = string;
 
 export enum UserRole {
-  ADMIN = 'admin',
+  ADMIN = 'ADMIN',
   VISITER = 'VISITER',
 }
 
